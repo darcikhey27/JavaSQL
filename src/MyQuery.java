@@ -53,6 +53,8 @@ public class MyQuery {
 	}
     }
 
+    // the letter will be coming from sql statement
+    // another sthing
     public void findGPAInfo() throws SQLException {
 	String query = "select grade from students "+
 			"group by students";
