@@ -56,30 +56,27 @@ public class MyQuery {
     // the letter will be coming from sql statement
     // another sthing
     public void findGPAInfo() throws SQLException {
-	String query = "select ID, name, grade "+
-			"from student natural join takes "+
-			"where takes.grade is not null "+
-			"group by student.ID ";
+	String query = Utility.readQuery1();
 
 	resultSet = statement.executeQuery(query);
-//	char letter = 'A';
-//	Utility.getGPA(letter);
+
     }
 
     public void printGPAInfo() throws IOException, SQLException {
 	System.out.println("******** Query 1 ********");
+	System.out.printf("ID\tname\t\tgrade\n");
+	
 	while(resultSet.next()) {
 	   String ID = resultSet.getString("ID");
 	   String name = resultSet.getString("name");
-	   String letterGrade = resultSet.getString("grade");
-	   printColumns(ID, name, letterGrade);
+	   String GPA = resultSet.getString("GPA");
+	  
+	   printColumns(ID, name, GPA);
 	}
     }
 
-    private void printColumns(String ID, String name, String letterGrade) {
-	System.out.printf("ID\tname\tgrade\n");
-	System.out.printf("%s\t%s\t%s\n", ID, name, letterGrade);
-	
+    private void printColumns(String ID, String name, String GPA) {
+	System.out.printf("%s\t%s\t\t%s\n", ID, name, GPA);
     }
 
     public void findMorningCourses() throws SQLException {

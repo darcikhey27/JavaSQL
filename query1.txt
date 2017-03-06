@@ -1,0 +1,23 @@
+select ID, name, sum(
+    (
+      select case
+        when takes.grade = 'A' then 4.0
+        when takes.grade = 'A-' then 3.67
+        when takes.grade = 'B+' then 3.33
+        when takes.grade = 'B' then 3.0
+        when takes.grade = 'B-' then 2.67
+        when takes.grade = 'C+' then 2.33
+        when takes.grade = 'C' then 2.0
+        when takes.grade = 'C-' then 1.67
+        when takes.grade = 'D+' then 1.33
+        when takes.grade = 'D' then 1.0
+        when takes.grade = 'D-' then 0.67
+        when takes.grade = 'F' then 0.0
+      end
+    ) * course.credits) / sum(course.credits) as GPA
+from student 
+  join takes using(ID)
+  join course using(course_id)
+where takes.grade is not null
+group by student.ID
+;
