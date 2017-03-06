@@ -64,7 +64,7 @@ public class MyQuery {
 
     public void printGPAInfo() throws IOException, SQLException {
 	System.out.println("******** Query 1 ********");
-	System.out.printf("ID\tname\t\tgrade\n");
+	System.out.printf("ID\tname\t\tGPA\n");
 	
 	while(resultSet.next()) {
 	   String ID = resultSet.getString("ID");
