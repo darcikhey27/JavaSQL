@@ -53,15 +53,24 @@ public class MyQuery {
 	}
     }
 
-    // the letter will be coming from sql statement
-    // another sthing
+    
+    // 1
     public void findGPAInfo() throws SQLException {
-	String query = Utility.readQuery1();
+	String query = "select ID, name, sum((select case ";
+	query += "when takes.grade = 'A' then 4.0 when takes.grade = 'A-' then 3.67 ";
+	query += "when takes.grade = 'B+' then 3.33 when takes.grade = 'B' then 3.0 ";
+	query += "when takes.grade = 'B-' then 2.67 when takes.grade = 'C+' then 2.33 ";
+	query += "when takes.grade = 'C' then 2.0 when takes.grade = 'C-' then 1.67 ";
+	query += "when takes.grade = 'D+' then 1.33 when takes.grade = 'D' then 1.0 ";
+	query += "when takes.grade = 'D-' then 0.67 when takes.grade = 'F' then 0.0 end ";
+	query += ") * course.credits) / sum(course.credits) as GPA ";
+	query += "from student join takes using(ID) join course using(course_id) ";
+	query += "where takes.grade is not null group by student.ID;";
 
 	resultSet = statement.executeQuery(query);
 
     }
-
+    // 1
     public void printGPAInfo() throws IOException, SQLException {
 	System.out.println("******** Query 1 ********");
 	System.out.printf("ID\tname\t\tGPA\n");
@@ -74,31 +83,32 @@ public class MyQuery {
 	   printColumns(ID, name, GPA);
 	}
     }
-
+    // 1
     private void printColumns(String ID, String name, String GPA) {
 	System.out.printf("%s\t%s\t\t%s\n", ID, name, GPA);
     }
 
+    // 2
     public void findMorningCourses() throws SQLException {
 
     }
-
+    // 2
     public void printMorningCourses() throws IOException, SQLException {
 	System.out.println("******** Query 2 ********");
     }
-
+    // 3
     public void findBusyInstructor() throws SQLException {
 
     }
-
+    // 3
     public void printBusyInstructor() throws IOException, SQLException {
 	System.out.println("******** Query 3 ********");
     }
-
+    // 4
     public void findPrereq() throws SQLException {
 
     }
-
+    // 4
     public void printPrereq() throws IOException, SQLException {
 	System.out.println("******** Query 4 ********");
     }
